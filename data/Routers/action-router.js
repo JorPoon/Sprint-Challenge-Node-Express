@@ -27,5 +27,14 @@ router.get('/:id', async (req, res) => {
    }
 })
 
+router.post('/', async (req, res) => {
+    try {
+        const addAction = await Actions.insert(req.body);
+        res.status(201).json(addAction);
+    } catch (error) {
+        res.status(500).json({error: 'Error adding action'})
+    }
+})
+
 
 module.exports = router;
