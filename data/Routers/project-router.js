@@ -36,6 +36,19 @@ router.get('/:id', async (req, res) => {
    }
 })
 
+router.get('/:id/actions' , async (req, res) => {
+    try {
+        const projectId = await Projects.getProjectActions(req.params.id)
+        if (projectId) {
+            res.status(200).json(projectId)
+        } else {
+            res.status(404).json({message: 'Actions cannot be found'})
+        }
+    } catch (error) {
+        res.status(500).json({message: 'Error retrieving project actions'})
+    }
+})
+
 router.post('/', testing, async (req, res) => {
     try {
         const addProject = await Projects.insert(req.body);
