@@ -4,6 +4,14 @@ const Projects = require('../helpers/projectModel');
 
 const router = express.Router();
 
+function testing (req, res, next) {
+    if (!req.body.name || !req.body.description){
+        res.status(400).json({error: 'Please provide name and description'})
+    } else {
+        next();
+    }
+}
+
 
 router.get('/', async (req, res) => {
     try {
@@ -28,14 +36,10 @@ router.get('/:id', async (req, res) => {
    }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', testing, async (req, res) => {
     try {
         const addProject = await Projects.insert(req.body);
-        if (!req.body.name && !req.body.description) {
-            res.status(400).json({error: 'Please provide name and description'})
-        } else {
             res.status(201).json(addProject);
-        } 
     } catch (error) {
         res.status(500).json({error: 'Error adding project'})
     }
