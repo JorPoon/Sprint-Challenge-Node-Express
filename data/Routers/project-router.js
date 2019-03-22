@@ -4,6 +4,7 @@ const Projects = require('../helpers/projectModel');
 
 const router = express.Router();
 
+
 router.get('/', async (req, res) => {
     try {
         const projects = await Projects.get()
