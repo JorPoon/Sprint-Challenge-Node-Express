@@ -12,4 +12,8 @@ Everything is a resource. In terms of this week, our resource is basically the d
 
 - [ ] What can the API return to help clients know if a request was successful?
 
+The API can return a respond status code that contains a message or an error telling the clients if the request was successful or failure.
+
 - [ ] How can we partition our application into sub-applications?
+
+Routers are what we can use to split our application into sub-applications to make it easier to manuever while writing our codes.
