@@ -1,9 +1,9 @@
 const express = require('express');
 const helmet = require('helmet');
 
-const actionRouter = require('./data/helpers/actionModel.js');
+const actionRouter = require('./data/Routers/action-router.js');
 
-const projectRouter = require('./data/helpers/projectModel.js');
+const projectRouter = require('./data/Routers/project-router.js');
 
 const server = express();
 
