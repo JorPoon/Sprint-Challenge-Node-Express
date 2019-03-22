@@ -30,7 +30,11 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const addAction = await Actions.insert(req.body);
-        res.status(201).json(addAction);
+        if (!req.body.project_id && !req.body.description && !req.body.notes ) {
+            res.status(400).json({error: 'Please provide name and description'})
+        } else {
+            res.status(201).json(addAction);
+        } 
     } catch (error) {
         res.status(500).json({error: 'Error adding action'})
     }
@@ -46,6 +50,20 @@ router.delete('/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({error: 'Error deleting action'});
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    const changes = req.body;
+    try {
+        const updateAction = await Actions.update(req.params.id, changes);
+        if(updateAction) {
+            res.status(200).json(updateAction);
+        } else {
+            res.status(404).json({error: 'Action cannot be found'})
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Error updating action'})
     }
 })
 
