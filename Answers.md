@@ -8,6 +8,8 @@ Middleware is a function that receives the resquest and response object. It can 
 
 - [ ] Describe a Resource?
 
+Everything is a resource. In terms of this week, our resource is basically the data we need to have access to through our endpoints.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
 - [ ] How can we partition our application into sub-applications?
