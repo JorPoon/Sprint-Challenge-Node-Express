@@ -4,6 +4,14 @@ const Actions = require('../helpers/actionModel');
 
 const router = express.Router();
 
+function security(req, res, next) {
+    if (!req.body.project_id || (!req.body.description && req.body.description.length <= 128) || !req.body.notes) {
+        res.status(500).json({message: 'Please provide project_id, notes and  less than 128 in description'})
+    } else {
+        next();
+    }
+}
+
 router.get('/', async (req, res) => {
     try {
         const actions = await Actions.get()
@@ -27,14 +35,11 @@ router.get('/:id', async (req, res) => {
    }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', security, async (req, res) => {
     try {
         const addAction = await Actions.insert(req.body);
-        if (!req.body.project_id && !req.body.description && !req.body.notes ) {
-            res.status(400).json({error: 'Please provide name and description'})
-        } else {
-            res.status(201).json(addAction);
-        } 
+        res.status(201).json(addAction)
+        
     } catch (error) {
         res.status(500).json({error: 'Error adding action'})
     }
